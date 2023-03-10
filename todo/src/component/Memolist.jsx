@@ -114,16 +114,38 @@ const Memoinput = styled.div`
 
 function Memolist({ el }) {
 
-    const hendleCheckBtn = (index) => {
-        console.log(index)
+    const [data, setData] = useState(el)
+    let Newdata = {...data}
 
-        el.memo
+    const hendleCheckBtn = (index) => {
+
+        Newdata.memo[index].complete = (!Newdata.memo[index].complete)
+        setData(Newdata)
+
     }
+
+    const hendleDeleteMemo = (index) => {
+
+        let delMemo = []
+        
+        for(let i=0; i< data.memo.length; i++){
+            if (Newdata.memo[i] !== Newdata.memo[index]){
+                delMemo.push(Newdata.memo[i])
+            }
+        };
+
+        setData()
+
+        // let newMemo = Newdata.memo.filter((el,i) => el[0] !== data.memo[index])
+        console.log(delMemo)
+    }
+
+
 
     return (
         <MemolistBox>
-            { el.memo.map ((memo,index) => (
-                <Memolists key={new Date()}>
+            { data.memo.map ((memo,index) => (
+                <Memolists key={memo.id}>
                     <div>{(memo.complete) ? <FontAwesomeIcon className="check-box on" icon={faCircleCheckSolid} onClick={()=>{hendleCheckBtn(index)}} /> :
                         <FontAwesomeIcon className="check-box off" icon={faCircleCheck} onClick={()=>{hendleCheckBtn(index)}}/>}</div>
                     <div>
@@ -133,7 +155,7 @@ function Memolist({ el }) {
                         <span><FontAwesomeIcon icon={faCalendarCheck} /></span>
                         <span>{memo.date} 까지</span>
                     </div>
-                    <div><button>×</button></div>
+                    <div><button onClick={()=>{hendleDeleteMemo(index)}}>×</button></div>
                 </Memolists>
             ))}
             <Memoinput>

@@ -8,16 +8,19 @@ module.exports.data = [
         icon : './img/icon01.png',
         memo : [
             {
+                id: 1,
                 title : 'Stelyd-component 연습하기',
                 date : '03.02',
                 complete : false,
             },
             {
+                id: 2,
                 title : '모니터 보고 멍때리기',
                 date : '03.10',
                 complete : true,
             },
             {
+                id: 3,
                 title : '모던 자바스크립트 20p ~ 30p 정독',
                 date : '03.20',
                 complete : false,
@@ -35,6 +38,7 @@ module.exports.data = [
         icon : './img/icon04.png',
         memo : [
             {
+                id: 4,
                 title : '수료하고 돈스타브 ㄱㄱ',
                 date : '06.15',
                 complete : true,
@@ -51,11 +55,13 @@ module.exports.data = [
         icon : './img/icon02.png',
         memo : [
             {
+                id: 5,
                 title : '내 생일기념 쇼핑',
                 date : '04.14',
                 complete : true,
             },
             {
+                id: 6,
                 title : '어제 용돈으로 들어온 10억쓰기',
                 date : '03.02',
                 complete : true,
