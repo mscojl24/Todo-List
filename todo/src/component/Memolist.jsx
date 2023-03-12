@@ -114,37 +114,64 @@ const Memoinput = styled.div`
 
 function Memolist({ el }) {
 
-    const [data, setData] = useState(el)
-    let Newdata = {...data}
+    const [memoData, setMemoData] = useState(el.memo)
+
+    const [dateValue, setDateValue] = useState("")
+    const [titleValue, setTitleValue] = useState("")
+
+
+    const Datevalue = (e) => {
+        let targetDate = e.target.value
+        setDateValue(targetDate.slice(5))
+    }
+
+    const Titlevalue = (e) => {
+        setTitleValue(e.target.value)
+    }
+
 
     const hendleCheckBtn = (index) => {
 
-        Newdata.memo[index].complete = (!Newdata.memo[index].complete)
-        setData(Newdata)
+        let copymemo = [...memoData]
+        copymemo[index].complete = (!copymemo[index].complete)
 
+        setMemoData(copymemo)
     }
 
     const hendleDeleteMemo = (index) => {
-
         let delMemo = []
-        
-        for(let i=0; i< data.memo.length; i++){
-            if (Newdata.memo[i] !== Newdata.memo[index]){
-                delMemo.push(Newdata.memo[i])
+        for(let i=0; i< memoData.length; i++){
+            if (memoData[i] !== memoData[index]){
+                delMemo.push(memoData[i])
             }
         };
+        setMemoData(delMemo)
+    }
 
-        setData()
+    const hendleUploadData = (index) => {
 
-        // let newMemo = Newdata.memo.filter((el,i) => el[0] !== data.memo[index])
-        console.log(delMemo)
+        let Newmemo = {
+            id: memoData.length,
+            title : titleValue,
+            date : dateValue,
+            complete : false,
+        }
+
+        if(dateValue === '' || titleValue === ''){
+            alert('날짜 혹은 할일을 입력하지 않았어요!')
+        } else{
+        setMemoData([...memoData,Newmemo])
+        setDateValue("")
+        setTitleValue("")
+        console.log(el.memo)
+        }
     }
 
 
 
     return (
         <MemolistBox>
-            { data.memo.map ((memo,index) => (
+            { memoData.map ((memo,index) => (
                 <Memolists key={memo.id}>
                     <div>{(memo.complete) ? <FontAwesomeIcon className="check-box on" icon={faCircleCheckSolid} onClick={()=>{hendleCheckBtn(index)}} /> :
                         <FontAwesomeIcon className="check-box off" icon={faCircleCheck} onClick={()=>{hendleCheckBtn(index)}}/>}</div>
@@ -159,9 +186,9 @@ function Memolist({ el }) {
                 </Memolists>
             ))}
             <Memoinput>
-                <input type="date" className="input-date" />
-                <input type="text" className="input-text" placeholder="오늘 할일을 입력하세요."></input>
-                <button className="submit-btn"> 작성 </button>
+                <input type="date" className="input-date" onChange={Datevalue} value={dateValue}/>
+                <input type="text" className="input-text" placeholder="오늘 할일을 입력하세요." onChange={Titlevalue} value={titleValue}></input>
+                <button className="submit-btn" onClick={hendleUploadData}> 작성 </button>
             </Memoinput>
 
 
